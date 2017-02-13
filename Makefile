@@ -15,7 +15,7 @@ main.o: main.cc
 	${CXX} ${CXX_FLAGS} -c main.cc
 
 gaussian.o: gaussian.cc
-  ${CXX} ${CXX_FLAGS} ${LOOP_CXX_FLAGS} -c gaussian.cc -o gaussian.o
+  ${CXX} -std=c++11 -ta=tesla:cuda8.0 -fast -Minfo=all,accel,intensity,ccff -c gaussian.cc -o gaussian.o
 
 noacc_gaussian.o: noacc_gaussian.cc
   ${CXX} ${CXX_FLAGS} -c noacc_gaussian.cc
