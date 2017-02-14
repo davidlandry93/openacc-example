@@ -1,6 +1,6 @@
 
 CXX=pgc++
-CXXFLAGS=-std=c++11 -ta=tesla:cuda8.0 =fast
+CXXFLAGS=-std=c++11 -ta=tesla:cuda8.0 -fast
 CXXFLAGS_LOOP=-Minfo=all,accel,intensity
 
 OBJECTS=main.o gaussian.o noacc_gaussian.o
