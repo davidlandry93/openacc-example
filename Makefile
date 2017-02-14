@@ -1,24 +1,22 @@
 
 CXX=pgc++
+CXXFLAGS=-std=c++11 -ta=tesla:cuda8.0 =fast
+CXXFLAGS_LOOP=-Minfo=all,accel,intensity
 
-CXX_FLAGS=-std=c++11 -ta=tesla:cuda8.0 -fast
-LOOP_CXX_FLAGS=-Minfo=all,accel,intensity,ccff
-SOURCES=main.cc gaussian.cc noacc_gaussian.cc
-OBJECTS=$(subst .cc,.o,${SOURCES})
+OBJECTS=main.o gaussian.o noacc_gaussian.o
 
 all: main
 
-main: ${OBJECTS}
-	${CXX} ${CXX_FLAGS} -o main ${OBJECTS}
+main: $(OBJECTS)
+	$(CXX) $(CXXFLAGS) -o main $(OBJECTS)
 
-main.o: main.cc
-	${CXX} ${CXX_FLAGS} -c main.cc
+gaussian.o: gaussian.h point.h
+	$(CXX) $(CXXFLAGS) $(CXXFLAGS_LOOP) -c gaussian.cc
 
-gaussian.o: gaussian.cc
-  ${CXX} -std=c++11 -ta=tesla:cuda8.0 -fast -Minfo=all,accel,intensity,ccff -c gaussian.cc -o gaussian.o
+# Implicit rules.
+main.o: gaussian.h noacc_gaussian.h point.h
+noacc_gaussian.o: noacc_gaussian.h gaussian.h point.h
 
-noacc_gaussian.o: noacc_gaussian.cc
-  ${CXX} ${CXX_FLAGS} -c noacc_gaussian.cc
-
+.PHONY: clean
 clean:
-	rm ${OBJECTS} main
+	rm main $(OBJECTS)
