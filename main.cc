@@ -16,6 +16,8 @@ int main(int argc, char *argv[])
     const int POINT_CLOUD_SIZE = 1000000;
     Point* points = new Point[POINT_CLOUD_SIZE];
     float* probabilities = new float[POINT_CLOUD_SIZE];
+
+    // Copy the data on GPU.
 #pragma acc enter data copyin(points[:POINT_CLOUD_SIZE])
 #pragma acc enter data create(probabilities[:POINT_CLOUD_SIZE])
 
@@ -31,8 +33,10 @@ int main(int argc, char *argv[])
     // Compute the PDF at the demanded points.
     auto start = chrono::steady_clock::now();
     gaussian_pdf(points, POINT_CLOUD_SIZE, probabilities);
+
     auto accelerated_time = chrono::steady_clock::now() - start;
     noacc_gaussian_pdf(points, POINT_CLOUD_SIZE, probabilities);
+
     auto non_accelerated_time = chrono::steady_clock::now() - start - accelerated_time;
 
     // Print the times.
@@ -40,6 +44,7 @@ int main(int argc, char *argv[])
     std::cout << "Device time: " << chrono::duration<float, milli>(accelerated_time).count() << " ms." << endl;
     std::cout << "Speedup: " << chrono::duration<float,milli>(non_accelerated_time).count() / chrono::duration<float, milli>(accelerated_time).count()  << "x." << endl;
 
+    // Delete the data from GPU.
 #pragma acc exit data delete(probabilities)
 #pragma acc exit data delete(points)
     delete[] probabilities;
