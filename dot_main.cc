@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     auto accelerated_time = chrono::steady_clock::now() - start;
 
     float host_dot = noacc_dot_product(v1, v2, VECTOR_SIZE);
-    auto non_accelerated_time = chrono::steady_clock::now() - start = accelerated_time;
+    auto non_accelerated_time = chrono::steady_clock::now() - start - accelerated_time;
 
     // Print the times.
     std::cout << "Host time: " << chrono::duration<float, milli>(non_accelerated_time).count() << " ms." << endl;

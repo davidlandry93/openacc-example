@@ -11,7 +11,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    const int POINT_CLOUD_SIZE = 1000000;
+    const int POINT_CLOUD_SIZE = 100000;
     Point* points = new Point[POINT_CLOUD_SIZE];
     float* probabilities = new float[POINT_CLOUD_SIZE];
 
