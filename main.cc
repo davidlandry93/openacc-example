@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
     float* probabilities = new float[POINT_CLOUD_SIZE];
 
     // Copy the data on GPU.
-#pragma acc enter data copyin(points[:POINT_CLOUD_SIZE])
-#pragma acc enter data create(probabilities[:POINT_CLOUD_SIZE])
+    #pragma acc enter data copyin(points[:POINT_CLOUD_SIZE])
+    #pragma acc enter data create(probabilities[:POINT_CLOUD_SIZE])
 
     // Generate random point cloud.
     default_random_engine generator;
@@ -45,8 +45,8 @@ int main(int argc, char *argv[])
     std::cout << "Speedup: " << chrono::duration<float,milli>(non_accelerated_time).count() / chrono::duration<float, milli>(accelerated_time).count()  << "x." << endl;
 
     // Delete the data from GPU.
-#pragma acc exit data delete(probabilities)
-#pragma acc exit data delete(points)
+    #pragma acc exit data delete(probabilities)
+    #pragma acc exit data delete(points)
     delete[] probabilities;
     delete[] points;
 
