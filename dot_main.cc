@@ -10,7 +10,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    const int VECTOR_SIZE = 1000000;
+    const int VECTOR_SIZE = 10000000;
 
     float* v1 = new float[VECTOR_SIZE];
     float* v2 = new float[VECTOR_SIZE];
