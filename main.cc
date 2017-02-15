@@ -11,8 +11,6 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    cout << "Hello world" << endl;
-
     const int POINT_CLOUD_SIZE = 1000000;
     Point* points = new Point[POINT_CLOUD_SIZE];
     float* probabilities = new float[POINT_CLOUD_SIZE];
