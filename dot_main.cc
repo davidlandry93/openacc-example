@@ -10,7 +10,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    const int VECTOR_SIZE = 1000000;
+    const int VECTOR_SIZE = 10000000;
 
     float* v1 = new float[VECTOR_SIZE];
     float* v2 = new float[VECTOR_SIZE];
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     auto accelerated_time = chrono::steady_clock::now() - start;
 
     float host_dot = noacc_dot_product(v1, v2, VECTOR_SIZE);
-    auto non_accelerated_time = chrono::steady_clock::now() - start = accelerated_time;
+    auto non_accelerated_time = chrono::steady_clock::now() - start - accelerated_time;
 
     // Print the times.
     std::cout << "Host time: " << chrono::duration<float, milli>(non_accelerated_time).count() << " ms." << endl;
