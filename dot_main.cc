@@ -35,9 +35,6 @@ int main(int argc, char *argv[])
     std::cout << "Device time: " << chrono::duration<float, milli>(accelerated_time).count() << " ms." << endl;
     std::cout << "Speedup: " << chrono::duration<float,milli>(non_accelerated_time).count() / chrono::duration<float, milli>(accelerated_time).count()  << "x." << endl;
 
-    std::cout << "Host result was: " << device_dot << endl;
-    std::cout << "Device result was: " << host_dot << endl;
-
     delete[] v1;
     delete[] v2;
 
